@@ -185,9 +185,9 @@ const App: React.FC = () => {
           </div>
           <button 
             onClick={() => setShowAbout(true)}
-            className="text-xs bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10 transition-colors"
+            className="text-xs bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full border border-white/10 transition-all hover:border-sky-500/50 font-semibold"
           >
-            About Developer
+            About Me
           </button>
         </header>
 
@@ -245,7 +245,7 @@ const App: React.FC = () => {
           )}
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="text-sm text-slate-400 order-2 md:order-1">
+            <div className="text-sm text-slate-400 order-2 md:order-1 font-medium">
               {convState.isActive ? 'I am listening... go ahead and speak!' : 'Click the button to start speaking'}
             </div>
             
@@ -310,22 +310,36 @@ const App: React.FC = () => {
       {/* About Me Modal */}
       {showAbout && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-white/10 p-8 rounded-3xl max-w-md w-full shadow-2xl">
-            <h2 className="text-2xl font-bold mb-4 text-sky-400">About Me</h2>
-            <div className="space-y-4 text-slate-300 leading-relaxed">
+          <div className="bg-slate-900 border border-white/10 p-8 rounded-3xl max-w-lg w-full shadow-2xl animate-in fade-in zoom-in duration-300">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 rounded-full bg-sky-500 flex items-center justify-center text-2xl font-bold shadow-lg shadow-sky-500/20">
+                EK
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-white">About Me</h2>
+                <p className="text-sky-400 font-medium">Developer & Student</p>
+              </div>
+            </div>
+            <div className="space-y-4 text-slate-300 leading-relaxed text-sm">
               <p>
-                This app has been created by <strong>Ernest Katembo Muhasa</strong>, a student at <strong>AIMS Africa (African Institute for Mathematical Sciences) Cameroon</strong>.
+                This app has been created by <strong>Ernest Katembo Muhasa</strong>, a dedicated student at <strong>AIMS Africa (African Institute for Mathematical Sciences) Cameroon</strong>.
               </p>
               <p>
-                My mission is to help fellow students and language learners practice English speaking for <strong>free</strong>, using cutting-edge AI technology to bridge the communication gap.
+                I developed this tool to help my fellow students and peers at AIMS and beyond practice their <strong>English speaking skills</strong> for <strong>free</strong>.
+              </p>
+              <p>
+                Using advanced AI, I want to ensure that language barriers never stop a brilliant mathematical or scientific mind from sharing their ideas with the world.
               </p>
             </div>
-            <button 
-              onClick={() => setShowAbout(false)}
-              className="mt-8 w-full py-3 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-colors"
-            >
-              Close
-            </button>
+            <div className="mt-8 pt-6 border-t border-white/5 flex flex-col gap-3">
+              <p className="text-[10px] text-slate-500 text-center uppercase tracking-widest">Built with passion in Cameroon</p>
+              <button 
+                onClick={() => setShowAbout(false)}
+                className="w-full py-3 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl transition-all border border-white/10"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
