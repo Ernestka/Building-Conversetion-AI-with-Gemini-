@@ -1,0 +1,7 @@
+{
+  "name": "Fluentify AI",
+  "description": "A high-end English practice application powered by Gemini 2.5 Flash Native Audio for real-time, low-latency voice conversations and corrections.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
