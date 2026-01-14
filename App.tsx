@@ -13,6 +13,7 @@ Your goal is to help the user practice speaking English.
 
 const App: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [showAbout, setShowAbout] = useState(false);
   const [convState, setConvState] = useState<ConversationState>({
     isActive: false,
     isConnecting: false,
@@ -93,7 +94,6 @@ const App: React.FC = () => {
             scriptProcessor.connect(audioContextInRef.current!.destination);
           },
           onmessage: async (message: LiveServerMessage) => {
-            // Audio Output Handling
             const base64Audio = message.serverContent?.modelTurn?.parts[0]?.inlineData?.data;
             if (base64Audio && audioContextOutRef.current) {
               const ctx = audioContextOutRef.current;
@@ -110,7 +110,6 @@ const App: React.FC = () => {
               sourcesRef.current.add(source);
             }
 
-            // Transcription Handling
             if (message.serverContent?.inputTranscription) {
               currentInputTranscriptRef.current += message.serverContent.inputTranscription.text;
             }
@@ -143,7 +142,6 @@ const App: React.FC = () => {
               currentOutputTranscriptRef.current = '';
             }
 
-            // Interruptions
             if (message.serverContent?.interrupted) {
               sourcesRef.current.forEach(s => s.stop());
               sourcesRef.current.clear();
@@ -185,17 +183,12 @@ const App: React.FC = () => {
               <p className="text-xs text-slate-400 font-medium uppercase tracking-widest">English Language Coach</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {convState.isActive && (
-              <span className="flex h-3 w-3 relative">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-              </span>
-            )}
-            <span className="text-sm font-medium text-slate-300">
-              {convState.isActive ? 'Live Session' : 'Ready'}
-            </span>
-          </div>
+          <button 
+            onClick={() => setShowAbout(true)}
+            className="text-xs bg-white/5 hover:bg-white/10 px-3 py-1.5 rounded-full border border-white/10 transition-colors"
+          >
+            About Developer
+          </button>
         </header>
 
         {/* Chat Area */}
@@ -313,6 +306,29 @@ const App: React.FC = () => {
           <span>I can help with pronunciation</span>
         </div>
       </div>
+
+      {/* About Me Modal */}
+      {showAbout && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-white/10 p-8 rounded-3xl max-w-md w-full shadow-2xl">
+            <h2 className="text-2xl font-bold mb-4 text-sky-400">About Me</h2>
+            <div className="space-y-4 text-slate-300 leading-relaxed">
+              <p>
+                This app has been created by <strong>Ernest Katembo Muhasa</strong>, a student at <strong>AIMS Africa (African Institute for Mathematical Sciences) Cameroon</strong>.
+              </p>
+              <p>
+                My mission is to help fellow students and language learners practice English speaking for <strong>free</strong>, using cutting-edge AI technology to bridge the communication gap.
+              </p>
+            </div>
+            <button 
+              onClick={() => setShowAbout(false)}
+              className="mt-8 w-full py-3 bg-sky-500 hover:bg-sky-400 text-white font-bold rounded-xl transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
